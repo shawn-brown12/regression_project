@@ -38,28 +38,14 @@ def get_zillow():
         
         url = get_connection('zillow')
         query = '''
-                SELECT bedroomcnt, bathroomcnt, calculatedfinishedsquarefeet, 
+                SELECT predictions_2017.parcelid, bedroomcnt, bathroomcnt, calculatedfinishedsquarefeet, 
                        taxvaluedollarcnt, yearbuilt, taxamount, fips
                 FROM properties_2017
                 JOIN propertylandusetype USING(propertylandusetypeid)
+                JOIN predictions_2017 USING(id)
                 WHERE propertylandusedesc = 'Single Family Residential';
                 '''
-        df = pd.read_sql(query, url)        
-        df = df.dropna()
-
-        df.bedroomcnt = df.bedroomcnt.astype(int)
-        df.calculatedfinishedsquarefeet = df.calculatedfinishedsquarefeet.astype(int)
-        df.taxvaluedollarcnt = df.taxvaluedollarcnt.astype(int)
-        df.yearbuilt = df.yearbuilt.astype(int)
-        df.fips = df.fips.astype(int)
-    
-        df = df.rename(columns= {'bedroomcnt': 'bedrooms',
-                                 'bathroomcnt': 'bathrooms',
-                                 'calculatedfinishedsquarefeet': 'square_ft',
-                                 'taxvaluedollarcnt':'tax_value',
-                                 'yearbuilt':'built',
-                                 'taxamaount':'taxes'
-                                 })        
+        df = pd.read_sql(query, url)                
         df.to_csv('zillow_2017.csv')
 
         return df

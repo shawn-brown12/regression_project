@@ -149,3 +149,19 @@ def chi2_report(df, col, target):
     print(f'p     = {p:.4f}')
 
     print('Is p-value < alpha?', p < alpha)
+
+#-------------------------------------------       
+    
+#my_range=range(1,len(train.index) + 1)
+#plt.figure(figsize=(4,10))
+#plt.scatter(train['tax_value'], my_range, color='green', alpha=0.8 , label='Property Value')
+#plt.axvline(.75, c='tomato')
+
+#plt.legend()
+
+#plt.yticks(my_range, train.index)
+#plt.title("Drivers of Price", loc='center')
+#plt.xlabel('Price-Low     Average = 0      Price-High')
+#plt.ylabel('Feature')
+
+#plt.show()

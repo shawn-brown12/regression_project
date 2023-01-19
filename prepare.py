@@ -12,6 +12,21 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, Qu
 
 #----------------------------------------------------------    
 
+def prep_zillow(df):
+
+    df = df.dropna()
+
+    df = df.drop(columns= ['parcelid', 'taxamount'])
+
+    df = df.rename(columns= {'bedroomcnt': 'bedrooms',
+                            'bathroomcnt': 'bathrooms',
+                            'calculatedfinishedsquarefeet': 'sqft',
+                            'taxvaluedollarcnt':'tax_value'
+                             })
+    return df
+
+#----------------------------------------------------------    
+
 def remove_outliers(df, k, col_list):
     ''' 
     This function takes in a dataframe, the threshold and a list of columns 
@@ -40,6 +55,8 @@ def subset_df(df, stratify=None, seed=42):
     '''
     train, val_test = train_test_split(df, train_size=.6, random_state=seed)
     validate, test = train_test_split(val_test, train_size=.5, random_state=seed)
+    
+    print(train.shape, validate.shape, test.shape)
     
     return train, validate, test
 
