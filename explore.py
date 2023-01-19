@@ -125,3 +125,27 @@ def better_than_baseline(y, yhat):
         print('My OSL model performs worse than baseline. :( )')
         
 #-------------------------------------------
+
+def chi2_report(df, col, target):
+    '''
+    This function is to be used to generate a crosstab for my observed data, and use that the run a chi2 test, and generate the report values from the test.
+    '''
+    
+    observed = pd.crosstab(df[col], df[target])
+    
+    chi2, p, degf, expected = stats.chi2_contingency(observed)
+
+    alpha = .05
+    seed = 42
+    
+    print('Observed Values\n')
+    print(observed.values)
+    
+    print('---\nExpected Values\n')
+    print(expected.astype(int))
+    print('---\n')
+
+    print(f'chi^2 = {chi2:.4f}') 
+    print(f'p     = {p:.4f}')
+
+    print('Is p-value < alpha?', p < alpha)
