@@ -21,7 +21,9 @@ def prep_zillow(df):
     df = df.rename(columns= {'bedroomcnt': 'bedrooms',
                             'bathroomcnt': 'bathrooms',
                             'calculatedfinishedsquarefeet': 'sqft',
-                            'taxvaluedollarcnt':'tax_value'
+                            'taxvaluedollarcnt':'tax_value',
+                            'regionidzip': 'zip_code',
+                            'yearbuilt': 'year_built'
                              })
     return df
 
@@ -160,4 +162,14 @@ def compare_plots(transformed_data, train, target):
     plt.hist(transformed_data, bins=25)
     plt.title('Transformed Data')
     
+#----------------------------------------------------------
+
+def hist_charts(df):
+
+    for col in df:
+
+        plt.hist(df[col], bins=25)
+        plt.title(f'{col} distribution')
+        plt.show()
+        
 #----------------------------------------------------------
