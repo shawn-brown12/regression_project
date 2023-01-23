@@ -45,14 +45,15 @@ Some questions I have are:
     
 ## Data Dictionary
 
-| **Feature | Definition** |
-| parcel_id |  Unique identifier for the parcel (lots) |
-| bedrooms | The number of bedrooms in the home |
-| bathrooms | The number of bathrooms in the home |
-| sqft | The calculated finished square feet of the living area in the home | 
-| tax_amount | The total tax assessed value of the parcel (lot) |
-| built | The year the home was built |
-| fips |  Federal Information Processing Standard code -  see https://en.wikipedia.org/wiki/FIPS_county_code for more details |
+| **Feature| Definition**|
+|:--------|:-----------|
+|parcel_id|  Unique identifier for the parcel (lots)|
+|bedrooms| The number of bedrooms in the home|
+|bathrooms| The number of bathrooms in the home|
+|sqft| The calculated finished square feet of the living area in the home| 
+|tax_amount| The total tax assessed value of the parcel (lot)|
+|built| The year the home was built|
+|fips|  Federal Information Processing Standard code -  see https://en.wikipedia.org/wiki/FIPS_county_code for more details|
 
 ## My Plan
 
