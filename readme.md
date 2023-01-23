@@ -45,7 +45,7 @@ Some questions I have are:
     
 ## Data Dictionary
 
-**|Feature| Definition|**
+|Feature| Definition|
 |:--------|:-----------|
 |parcel_id|  Unique identifier for the parcel (lots)|
 |bedrooms| The number of bedrooms in the home|
