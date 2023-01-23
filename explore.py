@@ -96,9 +96,13 @@ def mann_whitney_report(group1, group2):
 #---------------------------------------------------
 
 def first_viz(train):
-
-    plt.figure(figsize=(7,6))
-    sns.barplot(x='bedrooms', y='bathrooms', data=train, palette='cool')
+    '''
+    
+    '''    
+    fig, ax = plt.subplots(figsize=(8,6))
+    bplot = sns.barplot(x='bedrooms', y='bathrooms', data=train, palette='cool')
+    ax.bar_label(bplot.containers[0], padding= 6)
+    
     plt.title('Do Bathrooms Increase as Bedrooms Do?')
     plt.xlabel('Number of Bedrooms')
     plt.ylabel('Number of Bathrooms')
