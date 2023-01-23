@@ -2,18 +2,31 @@
 
 ## Project Description
 
+<div class="alert alert-block alert-success">
+<b></b>
+    
 The main goal here is to, using the Zillow dataset, discover some drivers behind the prices of single family homes, and using that, build multiple Regression models and refine them to create a model that accurately predicts single family home prices. The goals will be to make useful business recommendations based on my findings.
 
+</b>    
+    
 ## Project Goals
 
+<div class="alert alert-block alert-success">
+<b></b>
+    
 - Discover drivers behind housing prices.
 
 - Use those drivers to build a model that accurately predicts housing prices
 
 - Deliver a report that a non-technical person can read and understand the steps taken, why they wre taken, and the outcomes.
 
+</b>
+    
 ## Initial Hypotheses and Questions
 
+<div class="alert alert-block alert-success">
+<b></b>
+    
 My initial hypothesis is that the biggest drivers of price will the house's location, as well as the square footage of the home. 
 
 Some questions I have are:
@@ -28,6 +41,8 @@ Some questions I have are:
 
 - Is there a relationship between bathrooms and fips?
 
+    </b>
+    
 ## Data Dictionary
 
 | **Feature | Definition** |
@@ -41,6 +56,9 @@ Some questions I have are:
 
 ## My Plan
 
+<div class="alert alert-block alert-success">
+<b></b>
+    
 - Acquire and prepare my data using functions built stored in my acquire and prepare .py files.
 
 - Verify my functions performed properly, and that my data is in the form I need it to be. 
@@ -60,9 +78,14 @@ Some questions I have are:
     - Of the three, determine my best model to test on my test data subset
     
 - Draw conclusions based on my results.
+    
+    </b>
 
 ## Steps to Reproduce
 
+<div class="alert alert-block alert-success">
+<b></b>
+    
 - Clone this repository
 
 - Acquire this dataset, either through Codeup or another source
@@ -70,7 +93,37 @@ Some questions I have are:
 - Store the data within the clone repo so it's accessible
 
 - Run the final report
+    
+    </b>
 
 ## Takeaways and Conclusions
 
+<div class="alert alert-block alert-success">
+<b></b>
+    
+- As time progresses, houses are being built with more bedrooms.
 
+- In addition to the above, as time progresses, larger houses are also being built.
+
+- I found that there is not a significant relationship between the home's fips code and size.
+
+- There is also a relationship between fips code and number of bathrooms, which I found interesting.
+
+- I did discover that the zip code and the year the house was assessed were not helpful in modeling.
+
+- My models actually performed better without using the rfe or SelectKBest methods to narrow down features, but I believe that's because I started with relatively few features to begin with. I think those will be more helpful as more and more features are added to the dataset.
+
+- My top performer was a Lasso-Lars model with an alpha value of 0.1.
+
+- My final model did beat my baseline RMSE, by almost 9000. Not vasst amount, considering we are talking about near 200,000 here, but it **is** still an improvement over the baseline.
+
+    </b>
+    
+## Recommendations
+
+<div class="alert alert-block alert-success">
+<b></b>
+    
+- 
+    
+    </b>

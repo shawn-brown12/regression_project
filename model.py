@@ -2,14 +2,28 @@ import os
 import pandas as pd
 import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
 from scipy import stats
+from math import sqrt
+from scipy.stats import pearsonr, spearmanr
+
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score, explained_variance_score
 
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix, plot_confusion_matrix
+
+from sklearn.feature_selection import SelectKBest, f_regression, RFE
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, PolynomialFeatures
+from sklearn.linear_model import LassoLars, LinearRegression, TweedieRegressor
+
+import warnings
+warnings.filterwarnings("ignore")
+
+seed = 42
     
 #---------------------------------------------------
     
@@ -37,7 +51,6 @@ def plot_residuals(y, yhat):
     This function takes in the actual value and predicted value 
     then creates a scatter plot of those values
     '''
-    
     residuals = y - yhat
     
     plt.scatter(x=y, y=residuals)
@@ -115,7 +128,9 @@ def better_than_baseline(y, yhat):
 #---------------------------------------------------
 
 def rfe(n_features, X_train, y_train):
-    
+    '''
+    This function will take in a number of features, an X_train, and a y_train, to determine which features (based on the number chosen) are best suited to modeling for the best RMSE based on the rfe method.
+    '''
     lm = LinearRegression()
     rfe = RFE(lm, n_features_to_select=n_features)
 
@@ -134,7 +149,9 @@ def rfe(n_features, X_train, y_train):
 #---------------------------------------------------
 
 def f_selector(k, X_train, y_train):
-    
+    '''
+    This function will take in a number, an X_train, and a y_train, to determine which features (based on the number chosen) are best suited to modeling for the best RMSE, based upon the SelectKBest method.
+    '''
     f_selector = SelectKBest(f_regression, k=k)
 
     f_selector.fit(X_train, y_train)
@@ -150,7 +167,9 @@ def f_selector(k, X_train, y_train):
 #---------------------------------------------------
 
 def create_preds_df(y_train):
-    
+    '''
+    This function will create a dataframe, 'preds_df', using the y_train (or validate or test), and create a baseline column (using median), and return the dataframe.
+    '''
     preds_df = pd.DataFrame({'actual': y_train})
 
     preds_df['baseline_median'] = y_train.median()
@@ -159,8 +178,10 @@ def create_preds_df(y_train):
 
 #---------------------------------------------------
 
-def lin_regression(X_train, y_train):
-
+def lin_regression(X_train, y_train, preds_df):
+    '''
+    This function will take in an X_train, y_train, and a preds_df (or validate or test), and create, fit and predict upon a simple Linearregression() model, add the predictions to the preds_df, and return it.
+    '''
     lm = LinearRegression()
 
     lm.fit(X_train, y_train)
@@ -171,8 +192,10 @@ def lin_regression(X_train, y_train):
 
 #---------------------------------------------------
 
-def lasso_lars(X_train, y_train, alpha=.1):
-    
+def lasso_lars(X_train, y_train, preds_df, alpha=.1):
+    '''
+    This function will take in an X_train, y_train, and a preds_df (or validate or test) and an alpha (with a default of 0.1), and create, fit and predict upon a simple LassoLars() model, add the predictions to the preds_df, and return it. 
+    '''
     lasso = LassoLars(alpha=alpha)
 
     lasso.fit(X_train, y_train)
@@ -183,8 +206,10 @@ def lasso_lars(X_train, y_train, alpha=.1):
 
 #---------------------------------------------------
 
-def glm_model(X_train, y_train, power=0):
-    
+def glm_model(X_train, y_train, preds_df, power=0):
+    '''
+    This function will take in an X_train, y_train, a preds_df, and a power (with a default of 0), and create, fit, and predict upon the TweedieRegressor() (GLM) model, add those predictions to a preds_df, and return it.
+    '''
     tweedie = TweedieRegressor(power=power)
 
     tweedie.fit(X_train, y_train)
@@ -196,7 +221,9 @@ def glm_model(X_train, y_train, power=0):
 #---------------------------------------------------
 
 def poly_subset(X_train, y_train, degree=2):
-    
+    '''
+    This function will take in an X_train, a y_train, as well as a number for degrees chosen (defaulting to 2), to create a polynomial subset of the data, fitting and transforming it for use in other regression models and returning that new subset.
+    '''
     pf = PolynomialFeatures(degree=degree)
 
     pf.fit(X_train, y_train)
@@ -207,8 +234,10 @@ def poly_subset(X_train, y_train, degree=2):
 
 #---------------------------------------------------
 
-def poly_model(X_polynomial, y_train, m):
-    
+def poly_model(X_polynomial, y_train, preds_df, m):
+    '''
+    This function will take in a polynomial subset, a y_train, the preds_df, and a model type (m), to create, fit, and predict on the model, as well as creating a column for it in the preds_df, and then returning it.
+    '''
     model = m
 
     model.fit(X_polynomial, y_train)
@@ -220,24 +249,32 @@ def poly_model(X_polynomial, y_train, m):
 #---------------------------------------------------
 
 def get_rmses(preds_df):
-    
+    '''
+    This function will take in the preds_df, as long as there's a column for each of four different algorithms in the preds_df, and using those, create another dataframe with the rmse values for each algorithm and return it.
+    '''
     lm_rmse = sqrt(mean_squared_error(preds_df['lm_preds'], preds_df['actual']))
     lasso_rmse = sqrt(mean_squared_error(preds_df['actual'], preds_df['lasso_preds']))
     tweedie_rmse = sqrt(mean_squared_error(preds_df['actual'], preds_df['tweedie_preds']))
     poly_rmse = sqrt(mean_squared_error(preds_df['actual'], preds_df['poly_preds']))
     
-    print(f'Linear Regression RMSE is: {lm_rmse}')
-    print(f'Lasso-Lars Regression RMSE is: {lasso_rmse}')
-    print(f'GLM Regression RMSE is: {tweedie_rmse}')
-    print(f'Polynomial Regression RMSE is: {poly_rmse}')
-    
     results = pd.DataFrame({'model':['linear', 'lasso', 'tweedie_norm', 'linear_poly'],
-                            'rmse':[lm_rmse, lasso_rmse, tweedie_norm, poly_rmse]})
+                            'rmse':[lm_rmse, lasso_rmse, tweedie_rmse, poly_rmse]})
 
     return results
     
 #---------------------------------------------------
 
+def viz_6(final_stats):
+    '''
+    This is a function for the sixth visual in the final report
+    '''
+    sns.barplot(data=final_stats, x='model', y='results')
 
+    plt.title('Test Results compared to Baseline')
+    plt.xlabel('Model Name')
+    plt.ylabel('Number (on Average) off of Actual Home Value')
+
+    plt.show()
+    
 #---------------------------------------------------
 

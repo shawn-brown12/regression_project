@@ -13,7 +13,9 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, Qu
 #----------------------------------------------------------    
 
 def prep_zillow(df):
-
+    '''
+    This function will take in the zillow dataset (pulled down from the Codeup database) and clean it up.
+    '''
     df = df.dropna()
 
     df = df.drop(columns= ['parcelid', 'taxamount'])
@@ -72,7 +74,6 @@ def scale_data(train, validate, test,
     Takes in train, validate, and test data splits and returns their scaled counterparts.
     If return_scalar is True, the scaler object will be returned as well
     '''
-    
     # make copies of our original data so nothing gets messed up
     train_scaled = train.copy()
     validate_scaled = validate.copy()
@@ -105,8 +106,7 @@ def visualize_scaler(scaler, df, columns_to_scale, bins=10):
     '''
     This function takes in a specific scaler, dataframe, and returns two visuals of that data,
     one prior to scaling and one after scaling.
-    '''
-    
+    '''   
     fig, axs = plt.subplots(len(columns_to_scale), 2, figsize=(16,9))
     df_scaled = df.copy()
     df_scaled[columns_to_scale] = scaler.fit_transform(df[columns_to_scale])
@@ -124,7 +124,6 @@ def vis_scaler_inverse(scaler, df, columns_to_scale, bins=10):
     This function takes in a specific scaler, dataframe, and returns two visuals of that data,
     one prior to scaling and one after scaling. Specifically for visualizations, doesn't return anything.
     '''
-    
     fig, axs = plt.subplots(len(columns_to_scale), 3, figsize=(16,9))
     
     df_scaled = df.copy()
@@ -152,7 +151,6 @@ def compare_plots(transformed_data, train, target):
     '''
     This function will take in a train dataset and a transformed train dataset, bin them, and make a basic pairplot to visualize them side by side.
     '''
-    
     plt.subplot(121)
     plt.hist(train[target], bins=25)
     plt.title('Original Data')
@@ -165,7 +163,9 @@ def compare_plots(transformed_data, train, target):
 #----------------------------------------------------------
 
 def hist_charts(df):
-
+    '''
+    This function takes in a dataframe and creates a simple histogram for each column
+    '''
     for col in df:
 
         plt.hist(df[col], bins=25)
