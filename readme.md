@@ -1,8 +1,8 @@
-# Predicting the Value of Houses (working title)
+# Predicting the Value of Houses
 
 ## Project Description
     
-The main goal here is to, using the Zillow dataset, discover some drivers behind the prices of single family homes, and using that, build multiple Regression models and refine them to create a model that accurately predicts single family home prices. The goals will be to make useful business recommendations based on my findings.
+The main goal here is to, using the Zillow dataset, discover some drivers behind the prices of single family homes, and using that, build multiple Regression models and refine them to create a model that accurately predicts single family home prices. The final goal will be to make useful business recommendations based on my findings.
 
     
 ## Project Goals
