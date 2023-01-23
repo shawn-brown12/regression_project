@@ -1,18 +1,11 @@
 # Predicting the Value of Houses (working title)
 
 ## Project Description
-
-<div class="alert alert-block alert-success">
-<b></b>
     
 The main goal here is to, using the Zillow dataset, discover some drivers behind the prices of single family homes, and using that, build multiple Regression models and refine them to create a model that accurately predicts single family home prices. The goals will be to make useful business recommendations based on my findings.
 
-</b>    
     
 ## Project Goals
-
-<div class="alert alert-block alert-success">
-<b></b>
     
 - Discover drivers behind housing prices.
 
@@ -20,12 +13,8 @@ The main goal here is to, using the Zillow dataset, discover some drivers behind
 
 - Deliver a report that a non-technical person can read and understand the steps taken, why they wre taken, and the outcomes.
 
-</b>
     
 ## Initial Hypotheses and Questions
-
-<div class="alert alert-block alert-success">
-<b></b>
     
 My initial hypothesis is that the biggest drivers of price will the house's location, as well as the square footage of the home. 
 
@@ -40,8 +29,6 @@ Some questions I have are:
 - Does fips have a relationship with the square feet?
 
 - Is there a relationship between bathrooms and fips?
-
-    </b>
     
 ## Data Dictionary
 
@@ -56,9 +43,6 @@ Some questions I have are:
 |fips|  Federal Information Processing Standard code -  see https://en.wikipedia.org/wiki/FIPS_county_code for more details|
 
 ## My Plan
-
-<div class="alert alert-block alert-success">
-<b></b>
     
 - Acquire and prepare my data using functions built stored in my acquire and prepare .py files.
 
@@ -79,13 +63,8 @@ Some questions I have are:
     - Of the three, determine my best model to test on my test data subset
     
 - Draw conclusions based on my results.
-    
-    </b>
 
 ## Steps to Reproduce
-
-<div class="alert alert-block alert-success">
-<b></b>
     
 - Clone this repository
 
@@ -95,12 +74,7 @@ Some questions I have are:
 
 - Run the final report
     
-    </b>
-
 ## Takeaways and Conclusions
-
-<div class="alert alert-block alert-success">
-<b></b>
     
 - As time progresses, houses are being built with more bedrooms.
 
@@ -117,14 +91,7 @@ Some questions I have are:
 - My top performer was a Lasso-Lars model with an alpha value of 0.1.
 
 - My final model did beat my baseline RMSE, by almost 9000. Not vasst amount, considering we are talking about near 200,000 here, but it **is** still an improvement over the baseline.
-
-    </b>
     
 ## Recommendations
-
-<div class="alert alert-block alert-success">
-<b></b>
     
-- 
-    
-    </b>
+- My biggest recommendation going forward would be to survery recent home-buyers to determine their biggest deciding factors in choosing their new homes, and gathering any valuable insights from that to create new metrics in data acquisition going forward.
